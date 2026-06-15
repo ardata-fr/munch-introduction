@@ -1,0 +1,683 @@
+/*-- scss:defaults --*/
+
+// =========================================================
+//  node.this — thème revealjs aligné sur la charte TYO-DATA
+//  Primaire : #0097C3 (bleu TYO)
+//  Secondaire : #FF6B35 (orange node.this)
+//  Neutres : palette Slate
+// =========================================================
+
+// Couleurs de marque
+$tyo-primary:    #0097C3;
+$tyo-primary-d:  #006C8C;
+$tyo-secondary:  #FF6B35;
+
+$slate-50:  #F8FAFC;
+$slate-100: #F1F5F9;
+$slate-200: #E2E8F0;
+$slate-300: #CBD5E1;
+$slate-400: #94A3B8;
+$slate-500: #64748B;
+$slate-600: #475569;
+$slate-700: #334155;
+$slate-800: #1E293B;
+$slate-900: #0F172A;
+
+// Variables reveal.js / Quarto
+$body-bg:    #FFFFFF;
+$body-color: $slate-900;
+
+$backgroundColor: $body-bg;
+$mainColor:       $body-color;
+
+$link-color:       $tyo-primary;
+$link-color-hover: $tyo-secondary;
+
+$selection-bg:    $tyo-primary;
+$selection-color: #FFFFFF;
+
+// Typographie
+$font-family-sans-serif:  "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family-monospace:   "JetBrains Mono", "SF Mono", Menlo, monospace;
+$presentation-font-size-root: 32px;
+
+$presentation-heading-font:        $font-family-sans-serif;
+$presentation-heading-color:       $tyo-primary-d;
+$presentation-heading-font-weight: 700;
+$presentation-heading-line-height: 1.2;
+$presentation-heading-letter-spacing: -0.01em;
+$presentation-heading-text-transform: none;
+
+$presentation-h1-font-size: 2.4em;
+$presentation-h2-font-size: 1.6em;
+$presentation-h3-font-size: 1.2em;
+$presentation-h4-font-size: 1.0em;
+
+$presentation-block-margin: 18px;
+
+
+/*-- scss:rules --*/
+
+// Accent sur le titre de slide (h2) : barre colorée à gauche
+.reveal h2 {
+  padding-left: 18px;
+  margin-bottom: 0.6em;
+}
+
+// Mots clés en gras dans le corps : reprise du primaire
+.reveal strong {
+  color: $tyo-primary-d;
+}
+
+// Liens plus visibles
+.reveal a {
+  text-decoration: none;
+  border-bottom: 1px dotted currentColor;
+}
+
+// Listes : puces plus discrètes + espacement aéré
+.reveal ul,
+.reveal ol {
+  margin-left: 1.2em;
+}
+.reveal li {
+  margin-bottom: 0.35em;
+}
+.reveal ul li::marker {
+  color: $tyo-primary;
+}
+
+// Slide de titre — sélecteurs élargis pour viser ce que Quarto génère
+.reveal .title-slide h1,
+.reveal h1.title,
+.reveal .slide.title-slide h1 {
+  color: $tyo-primary;
+  font-size: 3em;
+  letter-spacing: -0.02em;
+  border-left: none;     // pas de barre sur la slide de titre
+  padding-left: 0;
+}
+.reveal .title-slide .subtitle,
+.reveal p.subtitle,
+.reveal .slide.title-slide .subtitle {
+  color: $slate-600;
+  font-weight: 400;
+  font-size: 1.3em;
+  margin-top: 0.3em;
+}
+.reveal .title-slide .quarto-title-author-name,
+.reveal .quarto-title-author-name {
+  color: $slate-500;
+  font-size: 0.9em;
+  margin-top: 1.5em;
+}
+
+// Layout "4 étapes" pour la slide "Comment ça marche"
+.reveal .flow-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: 0.8em;
+}
+.reveal .flow-steps.vertical {
+  grid-template-columns: 1fr;
+  gap: 6px;
+  margin-top: 0;
+}
+.reveal .flow-steps.vertical .flow-step {
+  text-align: left;
+  padding: 8px 12px;
+  border-top-width: 3px;
+}
+.reveal .flow-steps.vertical .flow-step .step-num {
+  font-size: 0.55em;
+  margin-bottom: 2px;
+}
+.reveal .flow-steps.vertical .flow-step .step-title {
+  font-size: 0.8em;
+  margin-bottom: 2px;
+}
+.reveal .flow-steps.vertical .flow-step .step-desc {
+  font-size: 0.55em;
+  line-height: 1.3;
+}
+
+// Image hero (screenshot produit) dans un layout 2 colonnes
+.reveal .hero-shot {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.12);
+  border: 1px solid $slate-200;
+}
+
+// Timeline horizontale (inspirée quarto-timeline d'Emil Hvitfeldt)
+.reveal .timeline {
+  --tl-color-line:   #{$slate-300};
+  --tl-color-dot:    #{$tyo-primary};
+  --tl-color-dot-bg: #FFFFFF;
+  --tl-color-label:  #{$tyo-primary-d};
+  --tl-color-content:#{$slate-700};
+  --tl-dot-size:     0.9rem;
+  --tl-line-width:   3px;
+  --tl-label-size:   0.55em;
+  --tl-content-size: 0.65em;
+
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  position: relative;
+  box-sizing: border-box;
+  padding: 50px 20px 4px;
+  margin: 0.4em 0;
+}
+
+.reveal .timeline::before {
+  content: '';
+  position: absolute;
+  top: 32px;
+  left: 20px;
+  right: 20px;
+  height: var(--tl-line-width);
+  background: var(--tl-color-line);
+}
+
+.reveal .timeline .event {
+  position: relative;
+  flex: 1;
+  text-align: center;
+  padding: 16px 8px 0;
+  box-sizing: border-box;
+  font-size: var(--tl-content-size);
+  color: var(--tl-color-content);
+  line-height: 1.3;
+}
+
+.reveal .timeline .event::before {
+  content: attr(data-label);
+  position: absolute;
+  top: calc(-46px - var(--tl-dot-size) / 2);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: var(--tl-label-size);
+  font-weight: 700;
+  color: var(--tl-color-label);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.reveal .timeline .event::after {
+  content: '';
+  position: absolute;
+  top: calc(-22px - var(--tl-dot-size) / 2);
+  left: 50%;
+  transform: translateX(-50%);
+  width: var(--tl-dot-size);
+  height: var(--tl-dot-size);
+  background: var(--tl-color-dot-bg);
+  border: 3px solid var(--tl-color-dot);
+  border-radius: 50%;
+}
+
+.reveal .timeline .event strong {
+  display: block;
+  color: $slate-900;
+  font-size: 1.25em;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+.reveal .flow-step {
+  background: $slate-50;
+  border: 1px solid $slate-200;
+  border-top: 4px solid $tyo-primary;
+  border-radius: 6px;
+  padding: 14px 12px;
+  text-align: center;
+}
+.reveal .flow-step .step-num {
+  display: block;
+  font-size: 0.7em;
+  color: $tyo-primary-d;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+}
+.reveal .flow-step .step-title {
+  display: block;
+  font-size: 0.95em;
+  font-weight: 700;
+  color: $slate-900;
+  margin-bottom: 4px;
+}
+.reveal .flow-step .step-desc {
+  display: block;
+  font-size: 0.65em;
+  color: $slate-600;
+  line-height: 1.3;
+}
+.reveal .flow-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $tyo-primary;
+  font-size: 1.4em;
+  font-weight: 700;
+}
+
+// Pipeline "Fonctionnement" : deux entrées convergent vers un modèle commun,
+// puis un pipeline linéaire (réutilise .flow-step / .flow-arrow)
+.reveal .pipeline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 1em 0 0.6em;
+}
+.reveal .pipeline .io-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.reveal .io-card {
+  background: #FFFFFF;
+  border: 1px solid $slate-200;
+  border-left: 4px solid $tyo-secondary;
+  border-radius: 6px;
+  padding: 10px 14px;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
+  min-width: 158px;
+}
+.reveal .io-card .io-kicker {
+  display: block;
+  font-size: 0.5em;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $tyo-secondary;
+  margin-bottom: 3px;
+}
+.reveal .io-card .io-name {
+  display: block;
+  font-size: 0.8em;
+  font-weight: 700;
+  color: $slate-900;
+}
+.reveal .io-card .io-sub {
+  display: block;
+  font-size: 0.55em;
+  color: $slate-500;
+  font-family: $font-family-monospace;
+  margin-top: 3px;
+}
+
+.reveal .pipeline .merge {
+  flex: 0 0 56px;
+  height: 130px;
+}
+.reveal .pipeline .merge path {
+  fill: none;
+  stroke: $slate-400;
+  stroke-width: 2;
+}
+
+.reveal .hub {
+  background: $tyo-primary;
+  border-radius: 8px;
+  padding: 16px 18px;
+  text-align: center;
+  box-shadow: 0 6px 16px rgba(0, 151, 195, 0.28);
+  min-width: 132px;
+}
+.reveal .hub .hub-kicker {
+  display: block;
+  font-size: 0.5em;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.82);
+  margin-bottom: 4px;
+}
+.reveal .hub .hub-name {
+  display: block;
+  font-size: 0.85em;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.reveal .pipe-step {
+  min-width: 130px;
+}
+
+// Grille de problèmes (slide "Les problèmes")
+.reveal .problem-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-top: 0.6em;
+}
+.reveal .problem-card {
+  background: #FFFFFF;
+  border: 1px solid $slate-200;
+  border-left: 4px solid $tyo-secondary;
+  border-radius: 6px;
+  padding: 14px 16px;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+}
+.reveal .problem-card .problem-title {
+  display: block;
+  font-size: 0.85em;
+  font-weight: 700;
+  color: $slate-900;
+  margin-bottom: 4px;
+}
+.reveal .problem-card .problem-desc {
+  display: block;
+  font-size: 0.65em;
+  color: $slate-600;
+  line-height: 1.45;
+}
+
+// Grille "Pourquoi node.this" — 4 cartes miroir aux 4 problèmes
+.reveal .response-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 0.6em;
+}
+.reveal .response-card {
+  background: #FFFFFF;
+  border: 1px solid $slate-200;
+  border-left: 4px solid $tyo-primary;
+  border-radius: 6px;
+  padding: 16px 18px;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+  position: relative;
+}
+.reveal .response-card .response-num {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 0.55em;
+  font-weight: 700;
+  color: $tyo-primary;
+  letter-spacing: 0.08em;
+}
+.reveal .response-card .response-title {
+  display: block;
+  font-size: 1em;
+  font-weight: 700;
+  color: $tyo-primary-d;
+  margin-bottom: 6px;
+}
+.reveal .response-card .response-desc {
+  display: block;
+  font-size: 0.7em;
+  color: $slate-700;
+  line-height: 1.5;
+}
+
+// Grille de fonctionnalités (slide "Ce que vous pouvez faire")
+.reveal .feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 0.6em;
+}
+.reveal .feature-card {
+  background: #FFFFFF;
+  border: 1px solid $slate-200;
+  border-left: 4px solid $tyo-primary;
+  border-radius: 6px;
+  padding: 14px 16px;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+}
+.reveal .feature-card .feature-title {
+  display: block;
+  font-size: 0.85em;
+  font-weight: 700;
+  color: $slate-900;
+  margin-bottom: 4px;
+}
+.reveal .feature-card .feature-desc {
+  display: block;
+  font-size: 0.65em;
+  color: $slate-600;
+  line-height: 1.4;
+}
+.reveal .feature-card.accent {
+  border-left-color: $tyo-secondary;
+}
+
+// Style du logo : taille raisonnable, bas-droite
+.reveal .slide-logo {
+  max-height: 56px !important;
+  bottom: 12px !important;
+  right: 16px !important;
+}
+
+// Carte user-story
+.reveal .story-card {
+  background: $slate-50;
+  border-left: 4px solid $tyo-primary;
+  padding: 14px 16px;
+  border-radius: 4px;
+  height: 100%;
+}
+.reveal .story-card .story-tag {
+  display: inline-block;
+  background: $tyo-primary;
+  color: #FFF;
+  font-size: 0.55em;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.2em 0.7em;
+  border-radius: 999px;
+  margin-bottom: 0.6em;
+}
+.reveal .story-card .story-title {
+  font-size: 0.85em;
+  font-weight: 700;
+  color: $slate-900;
+  margin-bottom: 0.4em;
+}
+.reveal .story-card .story-body {
+  font-size: 0.7em;
+  color: $slate-700;
+  line-height: 1.45;
+}
+
+// Slides de section (fond sombre)
+.reveal section.dark-bg,
+.reveal section[data-background-color="#0F172A"] {
+  color: #FFFFFF;
+  h1, h2, h3 { color: #FFFFFF; }
+  h2 { border-left-color: $tyo-secondary; }
+  strong { color: $tyo-secondary; }
+}
+
+// Encadrés clés (utiliser ::: {.callout-key})
+.reveal .callout-key {
+  background: $slate-50;
+  border-left: 4px solid $tyo-primary;
+  padding: 0.5em 1em;
+  border-radius: 4px;
+  margin: 0.4em 0 0 0;
+  font-size: 0.7em;
+}
+
+// Note de bas de slide / footer perso
+.reveal .footer-note {
+  position: absolute;
+  bottom: 12px;
+  right: 18px;
+  font-size: 0.55em;
+  color: $slate-400;
+}
+
+// Classe utilitaire pour texte plus petit ciblé
+.reveal .smaller-text {
+  font-size: 0.75em;
+  color: $slate-600;
+}
+
+// Tag / chip (ex: secteurs dans les user stories)
+.reveal .tag {
+  display: inline-block;
+  padding: 0.15em 0.7em;
+  background: $slate-100;
+  color: $slate-700;
+  border-radius: 999px;
+  font-size: 0.65em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-right: 0.3em;
+  vertical-align: middle;
+}
+.reveal .tag-primary  { background: rgba(0, 151, 195, 0.12); color: $tyo-primary-d; }
+.reveal .tag-secondary{ background: rgba(255, 107, 53, 0.12); color: $tyo-secondary; }
+
+.reveal .footer {
+  color: rgb(71, 85, 105);   // ou n'importe quelle couleur / variable
+}
+
+// Schéma "mesure & wrapping" (slide "La mesure du texte")
+.reveal .measure-demo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7em;
+  margin-top: 1.4em;
+}
+
+// le rectangle = la largeur cible ; les mots s'y accumulent puis passent
+// à la ligne (flex-wrap simule le wrapping de munch)
+.reveal .measure-demo .mbox {
+  position: relative;
+  width: 560px;
+  padding: 70px 40px 26px 132px;   // haut : cote width ; gauche : cotes asc/desc
+  border: 2px dashed $slate-300;
+  border-radius: 10px;
+  background: $slate-50;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;            // aligne les lignes de base du texte
+  align-content: flex-start;
+  gap: 24px 8px;
+}
+
+// chaque mot mesuré = un chip encadré
+.reveal .measure-demo .word {
+  font-family: $font-family-sans-serif;
+  font-size: 0.8em;
+  line-height: 1;
+  padding: 6px 7px;
+  border: 1.5px solid $slate-300;
+  border-radius: 4px;
+  background: #FFFFFF;
+  color: $slate-700;
+}
+
+// trait vertical marquant la largeur cible (bord droit utile)
+.reveal .measure-demo .m-limit {
+  position: absolute;
+  top: 14px;
+  bottom: 14px;
+  right: 38px;
+  border-left: 2px dashed $tyo-secondary;
+}
+.reveal .measure-demo .m-limit span {
+  position: absolute;
+  top: -1.5em;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.5em;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: $tyo-secondary;
+  white-space: nowrap;
+}
+
+// le mot mis en avant : agrandi, avec ses cotes
+.reveal .measure-demo .word.measured {
+  position: relative;
+  font-size: 1.55em;
+  padding: 4px 9px 15px;            // bas = zone de descent (15px)
+  border: 2px solid $tyo-secondary;
+  color: $slate-900;
+  overflow: visible;
+}
+
+// ligne de base (dashed) au pied des lettres
+.reveal .measure-demo .measured .baseline {
+  position: absolute;
+  left: -3px;
+  right: -3px;
+  bottom: 15px;
+  border-top: 1.5px dashed $tyo-secondary;
+}
+
+// cote horizontale "width" au-dessus du mot
+.reveal .measure-demo .measured .m-w {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -22px;
+  height: 8px;
+  border: 2px solid $tyo-primary;
+  border-bottom: none;
+}
+.reveal .measure-demo .measured .m-w span {
+  position: absolute;
+  left: 50%;
+  top: -1.5em;
+  transform: translateX(-50%);
+  font-size: 0.36em;
+  font-weight: 700;
+  color: $tyo-primary-d;
+}
+
+// cotes verticales "ascent" (haut → base) et "descent" (base → bas)
+.reveal .measure-demo .measured .m-asc,
+.reveal .measure-demo .measured .m-desc {
+  position: absolute;
+  left: -24px;
+  width: 8px;
+  border: 2px solid $tyo-primary;
+  border-right: none;
+}
+.reveal .measure-demo .measured .m-asc {
+  top: 0;
+  bottom: 15px;                     // s'arrête à la ligne de base
+  border-bottom: none;              // pas de tic à la base (épine continue)
+}
+.reveal .measure-demo .measured .m-desc {
+  bottom: 0;
+  height: 15px;                     // base → bas du chip
+  border-color: $tyo-secondary;
+  border-top: none;                 // pas de tic à la base (épine continue)
+}
+.reveal .measure-demo .measured .m-asc span,
+.reveal .measure-demo .measured .m-desc span {
+  position: absolute;
+  right: 100%;                      // label à gauche de la cote, horizontal
+  margin-right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.4em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.reveal .measure-demo .measured .m-asc span { color: $tyo-primary-d; }
+.reveal .measure-demo .measured .m-desc span { color: $tyo-secondary; }
+
+.reveal .measure-demo .mcap {
+  font-size: 0.6em;
+  color: $slate-600;
+  text-align: center;
+  max-width: 620px;
+  line-height: 1.4;
+  margin: 0;
+}
