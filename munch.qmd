@@ -54,9 +54,10 @@ dummy_dat <- dummy_dat[order(dummy_dat$Species), ]
 
 
 
-| Site ArData | Lien de la présentation |
+| Présentation | Sources |
 |---|---|
-| ![](assets/images/qr-ardata.svg){width="2in"} | ![](assets/images/qr-munch-intro.svg){width="2in"} |
+| ![](assets/images/qr-munch-intro.svg){width="3in"} | ![](assets/images/qr-munch-intro-source.svg){width="3in"} | 
+| https://www.ardata.fr/talks/munch-intro | https://github.com/ardata-fr/munch-introduction |
 
 
 ## Introduction
